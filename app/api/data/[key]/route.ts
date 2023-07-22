@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import statusList from "@/public/statusList.json";
+import statusList from "@/jupyter/statusList.json";
 
 export async function GET(
   _request: Request,

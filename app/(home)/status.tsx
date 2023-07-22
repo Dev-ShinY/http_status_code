@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+import Image from "next/image";
 import "@/styles/globals.css";
 
 export const Status = () => {
@@ -112,7 +113,7 @@ export const Status = () => {
   return (
     <div className={clsx("flex", "flex-col", "my-20")}>
       {status.map((item) => (
-        <div key={item.key} className={clsx()}>
+        <div key={item.key}>
           <div>
             <div
               className={clsx(
@@ -127,7 +128,7 @@ export const Status = () => {
                 "justify-between"
               )}
             >
-              <span>{item.des}</span>
+              <span className={clsx("font-bold")}>{item.des}</span>
               <span>ㅁ</span>
             </div>
 
@@ -143,7 +144,13 @@ export const Status = () => {
                         "hover-shadow"
                       )}
                     >
-                      <div className={clsx("h-60")}></div>
+                      <Image
+                        src={`https://http.cat/${itemV.status}`}
+                        width={320}
+                        height={240}
+                        alt="status img"
+                        className={clsx("object-cover", "h-60", "w-80")}
+                      />
                       <div className={clsx("bg-green-100", "p-4")}>
                         <p className={clsx("text-lg", "font-semibold")}>
                           {itemV.status}
