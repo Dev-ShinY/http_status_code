@@ -13,7 +13,15 @@ export const Intro = () => {
         "flex-col"
       )}
     >
-      <p className={clsx("md:text-4xl", "text-2xl", "font-extrabold")}>
+      <p
+        className={clsx(
+          "md:text-4xl",
+          "text-2xl",
+          "font-extrabold",
+          "text-center",
+          "px-10"
+        )}
+      >
         HTTP response status codes
       </p>
       <p className={clsx("mt-5", "font-light", "text-xl")}>ver.한국어</p>
