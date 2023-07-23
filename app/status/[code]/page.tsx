@@ -63,7 +63,7 @@ export default function Status({ params }: { params: { code: number } }) {
           <div className={clsx("text-xl", "font-bold", "mb-5")}>
             Description
           </div>
-          <p className={clsx()}>{resData?.des}</p>
+          <p>{resData?.des}</p>
         </div>
       </div>
     </main>
