@@ -4,12 +4,14 @@ import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
 import "@/styles/globals.css";
+import { useState } from "react";
 
 export const Status = () => {
-  const status = [
+  const [status, setStatus] = useState([
     {
       key: 1,
       des: "1xx 정보 응답",
+      expand: true,
       value: [
         { status: 100, description: "Continue" },
         { status: 101, description: "Switching Protocols" },
@@ -20,6 +22,7 @@ export const Status = () => {
     {
       key: 2,
       des: "2xx 성공 응답",
+      expand: true,
       value: [
         { status: 200, description: "OK" },
         { status: 201, description: "Created" },
@@ -33,6 +36,7 @@ export const Status = () => {
     {
       key: 3,
       des: "3xx 리다이렉션 메시지",
+      expand: true,
       value: [
         { status: 300, description: "Multiple Choices" },
         { status: 301, description: "Moved Permanently" },
@@ -47,6 +51,7 @@ export const Status = () => {
     {
       key: 4,
       des: "4xx 클라이언트 에러 응답",
+      expand: true,
       value: [
         { status: 400, description: "Bad Request" },
         { status: 401, description: "Unauthorized" },
@@ -88,6 +93,7 @@ export const Status = () => {
     {
       key: 5,
       des: "5xx 서버 에러 응답",
+      expand: true,
       value: [
         { status: 500, description: "Internal Server Error" },
         { status: 501, description: "Not Implemented" },
@@ -108,7 +114,7 @@ export const Status = () => {
         { status: 599, description: "Network Connect Timeout Error" },
       ],
     },
-  ];
+  ]);
 
   return (
     <div className={clsx("flex", "flex-col", "my-20")}>
@@ -125,45 +131,60 @@ export const Status = () => {
                 "my-5",
                 "cursor-pointer",
                 "flex",
-                "justify-between"
+                "justify-between",
+                "md:min-w-[1000px]",
+                "min-w-[320px]"
               )}
+              onClick={() =>
+                setStatus((preitems: any) => {
+                  return preitems.map((status: any) => {
+                    if (status.key === item.key)
+                      return { ...status, expand: !status.expand };
+                    return status;
+                  });
+                })
+              }
             >
               <span className={clsx("font-bold")}>{item.des}</span>
-              <span>ㅁ</span>
+              <span className={clsx(item.expand ? "-rotate-90" : "rotate-90")}>
+                ▶
+              </span>
             </div>
 
-            <div className={clsx("grid", "md:grid-cols-3", "gap-5")}>
-              {item.value.map((itemV) => (
-                <div key={itemV.status}>
-                  <Link href={`/status/${itemV.status}`} key={itemV.status}>
-                    <div
-                      className={clsx(
-                        "bg-white",
-                        "rounded-sm",
-                        "cursor-pointer",
-                        "hover-shadow"
-                      )}
-                    >
-                      <Image
-                        src={`https://http.cat/${itemV.status}`}
-                        width={320}
-                        height={240}
-                        alt="status img"
-                        className={clsx("object-cover", "h-60", "w-80")}
-                      />
-                      <div className={clsx("bg-green-100", "p-4")}>
-                        <p className={clsx("text-lg", "font-semibold")}>
-                          {itemV.status}
-                        </p>
-                        <span className={clsx("font-light")}>
-                          {itemV.description}
-                        </span>
+            {item.expand && (
+              <div className={clsx("grid", "md:grid-cols-3", "gap-5")}>
+                {item.value.map((itemV) => (
+                  <div key={itemV.status}>
+                    <Link href={`/status/${itemV.status}`} key={itemV.status}>
+                      <div
+                        className={clsx(
+                          "bg-white",
+                          "rounded-sm",
+                          "cursor-pointer",
+                          "hover-shadow"
+                        )}
+                      >
+                        <Image
+                          src={`https://http.cat/${itemV.status}`}
+                          width={320}
+                          height={240}
+                          alt="status img"
+                          className={clsx("object-cover", "h-60", "w-80")}
+                        />
+                        <div className={clsx("bg-green-100", "p-4")}>
+                          <p className={clsx("text-lg", "font-semibold")}>
+                            {itemV.status}
+                          </p>
+                          <span className={clsx("font-light")}>
+                            {itemV.description}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       ))}
